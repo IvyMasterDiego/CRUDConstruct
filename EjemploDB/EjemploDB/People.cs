@@ -303,6 +303,16 @@ namespace EjemploDB
         {
             chkSupportStaff.Text = chkSupportStaff.Checked ? "Si" : "NO";
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DeleteInfo();
+            DefaultControls();
+        }
+
+        private void DeleteInfo()
+        {
+        }
     }
 }
 
