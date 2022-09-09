@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using System.Windows.Forms;
 
 namespace EjemploDB
@@ -14,8 +15,8 @@ namespace EjemploDB
     public partial class Client : Form
     {
         INTEC_AGU_OCT22Entities db = new INTEC_AGU_OCT22Entities();
-        List<string> msg = new List<string>();
-        string ClientId = string.Empty;
+        ClientType clientType = new ClientType();
+        int clientId = 0;
         public Client()
         {
             InitializeComponent();
@@ -23,172 +24,82 @@ namespace EjemploDB
 
         private void Client_Load(object sender, EventArgs e)
         {
-            GetClient();
+            ClearData();
+            SetDataInGridView();
         }
 
-        private void GetClient()
+        private void SetDataInGridView()
         {
             var client = (from a in db.ClientTypes
-                          select new
-                          {
-                              a.Id,
-                              FullName = a.Name,
-                              a.Enabled,
-                              a.CreatedDate,
-                              a.Description
-                          }).ToList();
+                           select new
+                           {
+                               a.Id,
+                               FullName = a.Name,
+                               a.Description,
+                               a.CreatedDate,
+                               a.Enabled
+                           }).ToList();
+
             dataGridView1.DataSource = client;
-            dataGridView1.Columns[0].Visible = false;
         }
 
-        private void btnadd_Click(object sender, EventArgs e)
+        private void ClearData()
         {
-            btnadd.Enabled = true;
-            btnsave.Enabled = false;
-            btnsave.ForeColor = Color.Green;
-            btncancel.Enabled = true;
+            txtDate.Text = txtdesc.Text = txtname.Text = string.Empty;
+            btndelete.Enabled = false;
+            btnsave.Text = "Save";
+            clientId = 0;
         }
-
-        private void SaveForm()
-        {
-            var cliente = new Person();
-            cliente.ClientType.Id = Convert.ToInt32(Guid.NewGuid().ToString());
-            cliente.ClientType.Name = txtname.Text;
-            cliente.ClientType.Description = txtdesc.Text;
-            cliente.ClientType.CreatedDate = Convert.ToDateTime(txtdate.Text);
-
-            db.ClientTypes.Add(cliente.ClientType);
-            var clientsaved = db.SaveChanges() > 0;
-
-            if (clientsaved)
-            {
-                var user = new User();
-                user.Id = Guid.NewGuid().ToString();
-                user.Username = txtUsername.Text;
-                user.Password = txtPassword.Text;
-                user.LicenseTypeId = Convert.ToInt32(cbLicenseType.SelectedValue);
-                // user.cl = cliente.Id;
-                user.CreatedDate = DateTime.Now;
-
-                db.Users.Add(user);
-                var userSaved = db.SaveChanges() > 0;
-
-                if (userSaved)
-                {
-                    MessageBox.Show("The Client has been added", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    GetClient();
-                    DefaultControls();
-
-                    btnadd.Enabled = true;
-                    btnsave.Enabled = false;
-                    btnsave.ForeColor = Color.Black;
-                    btncancel.Enabled = false;
-                }
-            }
-        }
-
-        private void DefaultControls()
-        {
-            txtdate.Text = string.Empty;
-            txtdesc.Text = string.Empty;
-            txtname.Text = string.Empty;
-        }
-
-        private bool ValidateForm()
-        {
-            msg = new List<string>();
-            lblPassword.Visible = false;
-            lblUsername.Visible = false;
-            lblname.Visible = false;
-            lbldesc.Visible = false;
-            lbldate.Visible = false;
-
-            bool result = true;
-            if (string.IsNullOrEmpty(txtname.Text))
-            {
-                msg.Add("The field (Name) is required");
-                lblname.Visible = true;
-                result = false;
-            }
-
-            return result;
-        }
+       
 
         private void btnsave_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
+            clientType.Name = txtname.Text.Trim();
+            clientType.Description = txtdesc.Text;
+            clientType.CreatedDate = Convert.ToDateTime(txtDate.Text);
+            if (clientId > 0)
             {
-                SaveForm();
+                db.Entry(clientType).State = EntityState.Modified;
             }
             else
             {
-                string errors = string.Empty;
-                int errorIndex = 1;
-                foreach (var item in msg)
-                {
-                    errors += $"{errorIndex}. - {item.ToString()}\n";
-                    errorIndex++;
-                }
-                MessageBox.Show(errors, "Errors", MessageBoxButtons.OK);
+                db.ClientTypes.Add(clientType);
             }
+            db.SaveChanges();
+            ClearData();
+            SetDataInGridView();
+            MessageBox.Show("Record Save");
         }
 
         private void btncancel_Click(object sender, EventArgs e)
         {
-            GetClient();
-            DefaultControls();
-            btnadd.Enabled = false;
-            btnsave.Enabled = false;
-            btnsave.ForeColor = Color.Black;
-            btncancel.Enabled = false;
+            ClearData();
         }
 
-        private void dataGridView1_Click(object sender, EventArgs e)
+        private void btndelete_Click(object sender, EventArgs e)
         {
-            ClientId = String.Empty;
-            var test = dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString();
-
-            if (!string.IsNullOrEmpty(dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString()))
+            if(MessageBox.Show("Quiere borrar este record?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                ClientId = dataGridView1.SelectedRows[0].Cells["Id"].Value.ToString();
-                btnupdate.Visible = true;
-                btndelete.Visible = true;
-            }
-            else
-            {
-                btndelete.Visible = false;
-                btnupdate.Visible = false;
+                db.ClientTypes.Remove(clientType);
+                db.SaveChanges();
+                ClearData();
+                SetDataInGridView();
+                MessageBox.Show("Record borrado");
             }
         }
 
-        private void GetClientById(string clientId)
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            DefaultControls();
-
-            var client = db.ClientTypes.FirstOrDefault(x => x.Id == Convert.ToInt32(clientId));
-
-            if (client != null)
+            if(dataGridView1.CurrentCell.RowIndex != -1)
             {
-                txtname.Text = client.Name;
-                txtdesc.Text = client.Description;
-                txtdate.Text = client.CreatedDate.ToString();
-
-                var user = db.Users.FirstOrDefault(x => x.PeopleId == clientId);
-                if (user != null)
-                {
-                    txtUsername.Text = user.Username;
-                }
+                clientId = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Id"].Value);
+                clientType = db.ClientTypes.Where(x => x.Id == clientId).FirstOrDefault();
+                txtname.Text = clientType.Name;
+                txtdesc.Text = clientType.Description;
+                txtDate.Text = clientType.CreatedDate.ToString();
             }
-        }
-
-        private void btnupdate_Click(object sender, EventArgs e)
-        {
-            GetClientById(ClientId);
-            btnadd.Enabled = false;
-            btnsave.Enabled = true;
-            btncancel.Enabled = true;
-            btnupdate.Visible = false;
-            btndelete.Visible = false;
+            btnsave.Text = "Update";
+            btndelete.Enabled = true;
         }
     }
 }
