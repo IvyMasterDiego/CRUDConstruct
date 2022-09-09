@@ -61,22 +61,28 @@
     <Compile Include="Company.cs">
       <DependentUpon>ModelIntec.tt</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Contact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Contact.Designer.cs">
+      <DependentUpon>Contact.cs</DependentUpon>
+    </Compile>
     <Compile Include="ContactType.cs">
       <DependentUpon>ModelIntec.tt</DependentUpon>
     </Compile>
     <Compile Include="Deparment.cs">
       <DependentUpon>ModelIntec.tt</DependentUpon>
     </Compile>
-    <Compile Include="Client.cs">
+    <Compile Include="Forms\Client.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Client.Designer.cs">
+    <Compile Include="Forms\Client.Designer.cs">
       <DependentUpon>Client.cs</DependentUpon>
     </Compile>
-    <Compile Include="People.cs">
+    <Compile Include="Forms\People.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="People.Designer.cs">
+    <Compile Include="Forms\People.Designer.cs">
       <DependentUpon>People.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelIntec.Context.cs">
@@ -105,6 +111,12 @@
     <Compile Include="Restriction.cs">
       <DependentUpon>ModelIntec.tt</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SelectCrud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectCrud.Designer.cs">
+      <DependentUpon>SelectCrud.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>ModelIntec.tt</DependentUpon>
     </Compile>
@@ -114,10 +126,13 @@
     <Compile Include="UserRestriction.cs">
       <DependentUpon>ModelIntec.tt</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Client.resx">
+    <EmbeddedResource Include="Forms\Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="People.resx">
+    <EmbeddedResource Include="Forms\Contact.resx">
+      <DependentUpon>Contact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\People.resx">
       <DependentUpon>People.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -130,6 +145,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Forms\SelectCrud.resx">
+      <DependentUpon>SelectCrud.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="ModelIntec.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelIntec.Designer.cs</LastGenOutput>

@@ -16,7 +16,7 @@ namespace EjemploDB
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Client());
+            Application.Run(new SelectCrud());
         }
     }
 }
