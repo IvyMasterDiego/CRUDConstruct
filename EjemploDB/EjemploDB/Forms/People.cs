@@ -15,9 +15,12 @@ namespace EjemploDB
         INTEC_AGU_OCT22Entities db = new INTEC_AGU_OCT22Entities();
         List<string> msg = new List<string>();
         string PeopleId = string.Empty;
+        Person person = new Person();
+        
         public People()
         {
             InitializeComponent();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -306,8 +309,14 @@ namespace EjemploDB
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DeleteInfo();
-            DefaultControls();
+            if (MessageBox.Show("Quiere borrar este record?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                db.People.Remove(person);
+                db.SaveChanges();
+                DefaultControls();
+                GetPeoples();
+                MessageBox.Show("Record borrado");
+            }
         }
 
         private void DeleteInfo()
