@@ -248,7 +248,7 @@ namespace EjemploDB
         private void dgvPeople_Click(object sender, EventArgs e)
         {
             PeopleId = String.Empty;
-
+            var test = dgvPeople.SelectedRows[0].Cells["Id"].Value.ToString();
             if (!string.IsNullOrEmpty(dgvPeople.SelectedRows[0].Cells["Id"].Value.ToString()))
             {
                 PeopleId = dgvPeople.SelectedRows[0].Cells["Id"].Value.ToString();
@@ -312,6 +312,7 @@ namespace EjemploDB
 
         private void DeleteInfo()
         {
+            //TODO delete
         }
     }
 }
