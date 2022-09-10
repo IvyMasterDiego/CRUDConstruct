@@ -309,20 +309,9 @@ namespace EjemploDB
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Quiere borrar este record?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                db.People.Remove(person);
-                db.SaveChanges();
-                DefaultControls();
-                GetPeoples();
-                MessageBox.Show("Record borrado");
-            }
+            //TODO hacer delete
         }
 
-        private void DeleteInfo()
-        {
-            //TODO delete
-        }
     }
 }
 
