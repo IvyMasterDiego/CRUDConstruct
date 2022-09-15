@@ -45,6 +45,7 @@ namespace EjemploDB
             this.chbPeople.TabIndex = 0;
             this.chbPeople.Text = "People";
             this.chbPeople.UseVisualStyleBackColor = true;
+            this.chbPeople.CheckedChanged += new System.EventHandler(this.chbPeople_CheckedChanged);
             // 
             // chbClient
             // 
@@ -55,6 +56,7 @@ namespace EjemploDB
             this.chbClient.TabIndex = 1;
             this.chbClient.Text = "Client";
             this.chbClient.UseVisualStyleBackColor = true;
+            this.chbClient.CheckedChanged += new System.EventHandler(this.chbClient_CheckedChanged);
             // 
             // chbContact
             // 
@@ -65,6 +67,7 @@ namespace EjemploDB
             this.chbContact.TabIndex = 2;
             this.chbContact.Text = "Contact";
             this.chbContact.UseVisualStyleBackColor = true;
+            this.chbContact.CheckedChanged += new System.EventHandler(this.chbContact_CheckedChanged);
             // 
             // button1
             // 
