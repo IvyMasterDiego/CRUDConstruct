@@ -312,6 +312,13 @@ namespace EjemploDB
             //TODO hacer delete
         }
 
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            SelectCrud select = new SelectCrud();
+            this.Hide();
+            select.FormClosed += (s, args) => this.Close();
+            select.Show();
+        }
     }
 }
 

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDate = new System.Windows.Forms.TextBox();
+            this.btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,11 +130,22 @@
             this.txtDate.Size = new System.Drawing.Size(256, 20);
             this.txtDate.TabIndex = 89;
             // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(730, 7);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(75, 23);
+            this.btnLogout.TabIndex = 90;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(817, 441);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.txtDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -166,5 +178,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.Button btnLogout;
     }
 }

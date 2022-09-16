@@ -39,6 +39,7 @@ namespace EjemploDB
             this.btnsave = new System.Windows.Forms.Button();
             this.lblname = new System.Windows.Forms.Label();
             this.txtname = new System.Windows.Forms.TextBox();
+            this.btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,11 +131,22 @@ namespace EjemploDB
             this.txtname.Size = new System.Drawing.Size(100, 20);
             this.txtname.TabIndex = 90;
             // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(713, 21);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(75, 23);
+            this.btnLogout.TabIndex = 100;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // Contact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(819, 450);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.txtDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -166,5 +178,6 @@ namespace EjemploDB
         private System.Windows.Forms.Button btnsave;
         private System.Windows.Forms.Label lblname;
         private System.Windows.Forms.TextBox txtname;
+        private System.Windows.Forms.Button btnLogout;
     }
 }
